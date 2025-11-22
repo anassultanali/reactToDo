@@ -1,15 +1,13 @@
-import "./App.css";
+import ToDo from "./components/ToDo";
 
 function App() {
   return (
-    <>
-    <div className="calss flex  justify-center ">
+    <div className="bg-stone-900 grid py-4 min-h-screen">
+    <ToDo />
+     
 
-      <h1 className="text-3xl   text-praimary font-bold underline">
-        Stay Safe!{" "}
-      </h1>
     </div>
-    </>
+  
   );
 }
 
