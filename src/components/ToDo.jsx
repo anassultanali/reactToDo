@@ -1,11 +1,12 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import todo_icon from "../assets/todo_icon.png";
 import ToDoList from "./ToDoList";
 
 export default function ToDo() {
   const [tasks, setTasks] = useState([]);
-
   const inputRef = useRef();
+
+  // ----------------------- Add --------------------
   const add = () => {
     let inputText = inputRef.current.value.trim();
 
@@ -20,6 +21,29 @@ export default function ToDo() {
     setTasks((prev) => [...prev, newTask]);
     inputRef.current.value = "";
   };
+
+  // ----------------------- Delete --------------------
+  const deleteTask = (id) => {
+    setTasks((prevTask) => {
+      return prevTask.filter((task) => task.id !== id);
+    });
+  };
+
+  // ----------------------- Update --------------------
+  const isDone = (id) => {
+    setTasks((prevTask) => {
+      return prevTask.map((task) => {
+        if (task.id === id) {
+          return { ...task, done: !task.done };
+        }
+        return task;
+      });
+    });
+  };
+
+  useEffect(()=>{
+    console.log(tasks)
+  } ,[tasks])
   return (
     <div className=" bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 min-h-[550px] rounded-xl">
       {/* -----------title--------------  */}
@@ -53,6 +77,8 @@ export default function ToDo() {
               text={item.text}
               id={item.id}
               done={item.done}
+              deleteTask={deleteTask}
+              isDone={isDone}
             />
           );
         })}
