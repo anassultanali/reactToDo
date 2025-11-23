@@ -3,7 +3,8 @@ import todo_icon from "../assets/todo_icon.png";
 import ToDoList from "./ToDoList";
 
 export default function ToDo() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(localStorage.getItem("tasks")?
+JSON.parse(localStorage.getItem("tasks")) : []);
   const inputRef = useRef();
 
   // ----------------------- Add --------------------
@@ -41,9 +42,10 @@ export default function ToDo() {
     });
   };
 
-  useEffect(()=>{
-    console.log(tasks)
-  } ,[tasks])
+  // ----------------------- Update --------------------
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
   return (
     <div className=" bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 min-h-[550px] rounded-xl">
       {/* -----------title--------------  */}
