@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import todo_icon from "../assets/todo_icon.png";
 import ToDoList from "./ToDoList";
+import Addbtn from "./button/Addbtn";
 
 export default function ToDo() {
   const [tasks, setTasks] = useState(localStorage.getItem("tasks")?
@@ -25,9 +26,12 @@ JSON.parse(localStorage.getItem("tasks")) : []);
 
   // ----------------------- Delete --------------------
   const deleteTask = (id) => {
-    setTasks((prevTask) => {
-      return prevTask.filter((task) => task.id !== id);
-    });
+    setTimeout(() => {
+      
+      setTasks((prevTask) => {
+        return prevTask.filter((task) => task.id !== id);
+      });
+    }, 500);
   };
 
   // ----------------------- Update --------------------
@@ -62,12 +66,11 @@ JSON.parse(localStorage.getItem("tasks")) : []);
           type="text"
           placeholder="Add your task"
         />
-        <button
-          onClick={add}
-          className="border-none rounded-full bg-orange-600 w-32 h-14 text-white text-lg font-medium cursor-pointer"
-        >
-          Add +
-        </button>
+        
+        <div onClick={add}>
+        <Addbtn />
+
+        </div>
       </div>
 
       {/* -----------todo list ------------------  */}
